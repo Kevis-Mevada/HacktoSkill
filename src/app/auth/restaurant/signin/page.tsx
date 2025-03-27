@@ -30,7 +30,7 @@ export default function RestaurantSignIn() {
       
       // Redirect to restaurant dashboard
       router.push('/dashboard/restaurant')
-    } catch (err) {
+    } catch  {
       setError('Invalid email or password')
     } finally {
       setIsLoading(false)
@@ -109,7 +109,7 @@ export default function RestaurantSignIn() {
 
         <div className="mt-6 text-center">
           <p className="text-gray-300">
-            Don't have a restaurant account?{' '}
+            Don&apos;t have a restaurant account?{' '}
             <Link href="/auth/restaurant/signup" className="text-blue-400 hover:text-blue-300">
               Sign up
             </Link>

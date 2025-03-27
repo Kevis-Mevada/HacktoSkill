@@ -13,7 +13,7 @@ import {
   ClockIcon,
   DocumentTextIcon,
   TagIcon
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/solid'
 
 export default function RestaurantSignUp() {
   const router = useRouter()
@@ -53,7 +53,7 @@ export default function RestaurantSignUp() {
       
       // Redirect to restaurant dashboard
       router.push('/dashboard/restaurant')
-    } catch (err) {
+    } catch  {
       setError('Failed to create account')
     } finally {
       setIsLoading(false)
@@ -77,28 +77,28 @@ export default function RestaurantSignUp() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
+        {error && (
             <div className="bg-red-500/20 text-red-400 p-3 rounded-lg text-sm border border-red-500/30">
-              {error}
-            </div>
-          )}
+            {error}
+          </div>
+        )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
+                <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
-                Restaurant Name
-              </label>
+                    Restaurant Name
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <BuildingStorefrontIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
-                  type="text"
+                  <input
+                    type="text"
                   id="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
-                  required
+                    required
                 />
               </div>
             </div>
@@ -111,13 +111,13 @@ export default function RestaurantSignUp() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <DocumentTextIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
-                  type="text"
+                  <input
+                    type="text"
                   id="licenseNumber"
                   value={formData.licenseNumber}
                   onChange={(e) => setFormData({ ...formData, licenseNumber: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
-                  required
+                    required
                 />
               </div>
             </div>
@@ -130,21 +130,21 @@ export default function RestaurantSignUp() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <EnvelopeIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
+                  <input
                   type="email"
-                  id="email"
+                    id="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
+                    required
+                  />
+                </div>
             </div>
 
-            <div>
+                <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-200 mb-2">
                 Phone Number
-              </label>
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <PhoneIcon className="h-5 w-5 text-gray-400" />
@@ -160,68 +160,68 @@ export default function RestaurantSignUp() {
               </div>
             </div>
 
-            <div>
+                <div>
               <label htmlFor="cuisine" className="block text-sm font-medium text-gray-200 mb-2">
                 Cuisine Type
-              </label>
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <TagIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
-                  type="text"
+                  <input
+                    type="text"
                   id="cuisine"
                   value={formData.cuisine}
                   onChange={(e) => setFormData({ ...formData, cuisine: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
+                    required
+                  />
+                </div>
             </div>
 
-            <div>
+                <div>
               <label htmlFor="operatingHours" className="block text-sm font-medium text-gray-200 mb-2">
                 Operating Hours
-              </label>
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <ClockIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
-                  type="text"
+                  <input
+                    type="text"
                   id="operatingHours"
                   value={formData.operatingHours}
                   onChange={(e) => setFormData({ ...formData, operatingHours: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
                   placeholder="e.g., 9:00 AM - 10:00 PM"
-                  required
-                />
+                    required
+                  />
               </div>
             </div>
 
-            <div>
+                <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
-                Password
-              </label>
+                    Password
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <LockClosedIcon className="h-5 w-5 text-gray-400" />
                 </div>
-                <input
+                  <input
                   type="password"
-                  id="password"
+                    id="password"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   className="w-full pl-10 pr-4 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:border-blue-500 text-white placeholder-gray-400"
-                  required
-                />
-              </div>
+                    required
+                  />
+                </div>
             </div>
 
-            <div>
+                <div>
               <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-200 mb-2">
-                Confirm Password
-              </label>
+                    Confirm Password
+                  </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <LockClosedIcon className="h-5 w-5 text-gray-400" />
@@ -261,10 +261,10 @@ export default function RestaurantSignUp() {
             <label htmlFor="description" className="block text-sm font-medium text-gray-200 mb-2">
               Restaurant Description
             </label>
-            <div className="relative">
+          <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <DocumentTextIcon className="h-5 w-5 text-gray-400" />
-              </div>
+            </div>
               <textarea
                 id="description"
                 value={formData.description}
@@ -276,13 +276,13 @@ export default function RestaurantSignUp() {
             </div>
           </div>
 
-          <button
+            <button
             type="submit"
-            disabled={isLoading}
+              disabled={isLoading}
             className="w-full py-3 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors disabled:bg-gray-700 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Creating account...' : 'Create Account'}
-          </button>
+            </button>
         </form>
 
         <div className="mt-6 text-center">

@@ -361,13 +361,13 @@ export default function Volunteers() {
                             {volunteer.status === 'inactive' && (
                               <p className="text-sm text-gray-400">
                                 <span className="font-medium">Last Active:</span>{' '}
-                                {new Date(volunteer.lastActive).toLocaleDateString()}
+                                {volunteer.lastActive ? new Date(volunteer.lastActive).toLocaleDateString() : 'N/A'}
                               </p>
                             )}
                             {volunteer.status === 'pending' && (
                               <p className="text-sm text-gray-400">
                                 <span className="font-medium">Applied on:</span>{' '}
-                                {new Date(volunteer.applicationDate).toLocaleDateString()}
+                                {volunteer.applicationDate ? new Date(volunteer.applicationDate).toLocaleDateString() : 'N/A'}
                               </p>
                             )}
                           </div>

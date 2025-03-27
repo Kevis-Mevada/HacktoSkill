@@ -31,7 +31,7 @@ const sections = [
   {
     id: 'mission-vision',
     title: 'Mission & Vision',
-    content: 'Our mission is to create a sustainable food sharing ecosystem that connects surplus food with those in need. We envision a world where no one goes hungry and no food goes to waste.',
+    content: 'Our mission is to create a sustainable food-sharing ecosystem that connects surplus food with those in need. We envision a world where no one goes hungry and no food goes to waste.',
   },
   {
     id: 'our-work',
@@ -69,7 +69,7 @@ export default function Home() {
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
               <div className="relative h-full w-full">
-            <Image
+                <Image
                   src={slide.image}
                   alt={slide.title}
                   fill
@@ -94,12 +94,33 @@ export default function Home() {
                   >
                     {slide.description}
                   </motion.p>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => scrollToSection('mission-vision')}
+                    className="mt-6 bg-white text-black px-6 py-3 rounded-md font-medium hover:bg-gray-200 transition-colors duration-200"
+                  >
+                    Learn More
+                  </motion.button>
                 </div>
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-        </div>
+      </div>
+
+      {/* Navigation Buttons for Sections */}
+      <div className="py-8 text-center">
+        <button onClick={() => scrollToSection('mission-vision')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
+          Mission & Vision
+        </button>
+        <button onClick={() => scrollToSection('our-work')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
+          Our Work
+        </button>
+        <button onClick={() => scrollToSection('who-we-are')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
+          Who We Are
+        </button>
+      </div>
 
       {/* About Sections */}
       {sections.map((section, index) => (
@@ -132,58 +153,25 @@ export default function Home() {
             <div>
               <h3 className="text-xl font-semibold mb-6">Contact Us</h3>
               <ul className="space-y-4">
-                <li className="flex items-center space-x-3">
-                  <span className="text-gray-400">Email:</span>
-                  <span>info@foodshare.org</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <span className="text-gray-400">Phone:</span>
-                  <span>+1 (123) 456-7890</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <span className="text-gray-400">Address:</span>
-                  <span>123 Food Street, City, Country</span>
-                </li>
+                <li>Email: info@foodshare.org</li>
+                <li>Phone: +1 (123) 456-7890</li>
+                <li>Address: 123 Food Street, City, Country</li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-6">Quick Links</h3>
               <ul className="space-y-4">
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    Donate
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    Find NGO
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-gray-300">About Us</a></li>
+                <li><a href="#" className="hover:text-gray-300">Donate</a></li>
+                <li><a href="#" className="hover:text-gray-300">Find NGO</a></li>
               </ul>
             </div>
             <div>
               <h3 className="text-xl font-semibold mb-6">Follow Us</h3>
               <ul className="space-y-4">
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    Facebook
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    Twitter
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-gray-300 transition-colors duration-200">
-                    Instagram
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-gray-300">Facebook</a></li>
+                <li><a href="#" className="hover:text-gray-300">Twitter</a></li>
+                <li><a href="#" className="hover:text-gray-300">Instagram</a></li>
               </ul>
             </div>
           </div>

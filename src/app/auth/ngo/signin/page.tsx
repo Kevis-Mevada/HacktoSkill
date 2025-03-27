@@ -30,7 +30,8 @@ export default function NGOSignIn() {
       
       // Redirect to NGO dashboard
       router.push('/dashboard/ngo')
-    } catch (err) {
+    } catch{
+      
       setError('Invalid email or password')
     } finally {
       setIsLoading(false)
@@ -109,7 +110,7 @@ export default function NGOSignIn() {
 
         <div className="mt-6 text-center">
           <p className="text-gray-300">
-            Don't have an NGO account?{' '}
+            Don&apos;t have an NGO account?{' '}
             <Link href="/auth/ngo/signup" className="text-blue-400 hover:text-blue-300">
               Sign up
             </Link>

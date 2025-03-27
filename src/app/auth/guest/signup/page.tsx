@@ -37,8 +37,8 @@ export default function GuestSignUp() {
     }
 
     try {
-      // Add your sign-up logic here
-      // For now, we'll simulate a successful sign-up
+      // Add your registration logic here
+      // For now, we'll simulate a successful registration
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Store user role in localStorage
@@ -46,7 +46,7 @@ export default function GuestSignUp() {
       
       // Redirect to guest dashboard
       router.push('/dashboard/guest')
-    } catch (err) {
+    } catch {
       setError('Failed to create account')
     } finally {
       setIsLoading(false)

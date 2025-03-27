@@ -352,14 +352,21 @@ export default function History() {
                                 <div>
                                   <p className="text-sm text-gray-400 mb-2">Food Items:</p>
                                   <div className="flex flex-wrap gap-2">
-                                    {item.foodItems.map((food, index) => (
-                                      <span
-                                        key={index}
-                                        className="px-2 py-1 bg-gray-700 rounded-full text-xs text-gray-300"
-                                      >
-                                        {food}
-                                      </span>
-                                    ))}
+                                  {item.foodItems?.length ? (
+  <>
+    <p className="text-sm text-gray-400 mb-2">Food Items:</p>
+    <div className="flex flex-wrap gap-2">
+      {item.foodItems.map((food, index) => (
+        <span
+          key={index}
+          className="px-2 py-1 bg-gray-700 rounded-full text-xs text-gray-300"
+        >
+          {food}
+        </span>
+      ))}
+    </div>
+  </>
+) : null}
                                   </div>
                                 </div>
                               </>

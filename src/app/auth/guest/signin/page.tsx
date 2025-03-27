@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+
 import Link from 'next/link'
+
 import { useRouter } from 'next/navigation'
 import { EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline'
 
@@ -30,7 +32,7 @@ export default function GuestSignIn() {
       
       // Redirect to guest dashboard
       router.push('/dashboard/guest')
-    } catch (err) {
+    } catch {
       setError('Invalid email or password')
     } finally {
       setIsLoading(false)
@@ -109,7 +111,7 @@ export default function GuestSignIn() {
 
         <div className="mt-6 text-center">
           <p className="text-gray-300">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/auth/guest/signup" className="text-blue-400 hover:text-blue-300">
               Sign up
             </Link>

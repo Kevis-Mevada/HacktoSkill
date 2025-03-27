@@ -12,7 +12,7 @@ import {
   MapPinIcon,
   DocumentTextIcon,
   GlobeAltIcon
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/solid'
 
 export default function NGOSignUp() {
   const router = useRouter()
@@ -51,7 +51,7 @@ export default function NGOSignUp() {
       
       // Redirect to NGO dashboard
       router.push('/dashboard/ngo')
-    } catch (err) {
+    } catch {
       setError('Failed to create account')
     } finally {
       setIsLoading(false)

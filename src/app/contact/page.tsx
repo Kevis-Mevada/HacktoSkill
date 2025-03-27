@@ -1,14 +1,14 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Navbar from '@/components/navigation/Navbar'
-import Image from 'next/image'
+import { motion } from "framer-motion";
+import Navbar from "@/components/navigation/Navbar";
+import Image from "next/image";
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-black text-white">
       <Navbar />
-      
+
       {/* Hero Section */}
       <div className="pt-32 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
@@ -20,7 +20,7 @@ export default function ContactPage() {
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Get in touch with us. We'd love to hear from you and answer any questions you may have.
+              Get in touch with us. We&apos;d love to hear from you and answer any questions you may have.
             </p>
           </motion.div>
         </div>
@@ -149,15 +149,10 @@ export default function ContactPage() {
             <p className="text-gray-300">Find us on the map below</p>
           </motion.div>
           <div className="relative h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/images/map.jpg"
-              alt="Location Map"
-              fill
-              className="object-cover"
-            />
+            <Image src="/images/map.jpg" alt="Location Map" fill className="object-cover" />
           </div>
         </div>
       </div>
     </div>
-  )
-} 
+  );
+}
