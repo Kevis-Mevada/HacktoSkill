@@ -41,7 +41,7 @@ export default function Navbar() {
                     className="flex items-center space-x-2"
                   >
                     <Image
-                      src="/logo.png"
+                      src="/images/logo.png"
                       alt="FoodShare"
                       width={120}
                       height={40}
