@@ -1,155 +1,395 @@
-"use client"; // ✅ Mark this as a client component
+'use client'
 
-import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation"; // ✅ Use next/navigation for Next.js
-import axios from "axios";
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import Navbar from '@/components/navigation/Navbar'
+import Link from 'next/link'
+import { 
+  HeartIcon, 
+  EnvelopeIcon, 
+  PhoneIcon, 
+  MapPinIcon,
+  DocumentTextIcon,
+  GlobeAltIcon,
+  ClockIcon,
+  CheckBadgeIcon
+} from '@heroicons/react/24/solid'
 
-const NGOProfile = () => {
-    const params = useParams(); // ✅ Get params safely
-    const id = params?.id as string | undefined; // ✅ Explicitly type and handle null
-    const [profile, setProfile] = useState<FormData | null>(null);
-    const [isEditing, setIsEditing] = useState(false);
-    
-    interface FormData {
-        isVerified: boolean;
-        name: string;
-        email: string;
-        address: string;
-        phone: string;
-    }
+export default function NGOProfile() {
+  const [isEditing, setIsEditing] = useState(false)
+  const [profile, setProfile] = useState({
+    name: 'Green Earth Foundation',
+    email: 'contact@greenearth.org',
+    phone: '+1 555-123-4567',
+    address: '123 Eco Street, Green City',
+    registrationNumber: 'NGO-12345',
+    description: 'We are dedicated to environmental conservation and sustainable development initiatives worldwide.',
+    website: 'https://greenearth.org',
+    isVerified: true
+  })
 
-    const [formData, setFormData] = useState<FormData>({
-        isVerified: false,
-        name: "",
-        email: "",
-        address: "",
-        phone: "",
-    });
-    const [showVerificationAlert, setShowVerificationAlert] = useState(false);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsEditing(false)
+    // Add profile update logic here
+  }
 
-    useEffect(() => {
-        if (!id) return; // ✅ Avoid running the effect if ID is not available
-
-        axios
-            .get<FormData>(`/api/ngos/${id}`)
-            .then((response) => {
-                setProfile(response.data as FormData);
-                setFormData(response.data);
-            })
-            .catch((error) => console.error("Error fetching profile:", error));
-    }, [id]);
-
-    const handleEdit = () => setIsEditing(true);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        axios
-            .put(`/api/ngos/${id}`, formData)
-            .then((response) => {
-                setProfile(response.data as FormData);
-                setIsEditing(false);
-            })
-            .catch((error) => console.error("Error updating profile:", error));
-    };
-
-    const handleVerify = () => {
-        axios
-            .post(`/api/ngos/${id}/verify`)
-            .then(() => setShowVerificationAlert(true))
-            .catch((error) => console.error("Verification failed:", error));
-    };
-
-    if (!profile) return <p>Loading...</p>;
-
-    return (
-        <div className="flex h-screen">
-            <div className="flex-grow p-6">
-                <h1 className="text-2xl font-bold">NGO Profile</h1>
-                <div className="mt-4">
-                    {!isEditing ? (
-                        <div>
-                            <p>
-                                <strong>Name:</strong> {profile.name}
-                            </p>
-                            <p>
-                                <strong>Email:</strong> {profile.email}
-                            </p>
-                            <p>
-                                <strong>Address:</strong> {profile.address}
-                            </p>
-                            <p>
-                                <strong>Phone:</strong> {profile.phone}
-                            </p>
-                            <p>
-                                <strong>Verification Status:</strong>{" "}
-                                {profile.isVerified ? "Verified" : "Not Verified"}
-                            </p>
-                            <button
-                                onClick={handleEdit}
-                                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-                            >
-                                Edit
-                            </button>
-                            {!profile.isVerified && (
-                                <button
-                                    onClick={handleVerify}
-                                    className="mt-2 ml-2 bg-green-500 text-white px-4 py-2 rounded"
-                                >
-                                    Verify
-                                </button>
-                            )}
-                            {showVerificationAlert && (
-                                <p className="mt-2 text-green-600">
-                                    Verification request sent!
-                                </p>
-                            )}
-                        </div>
-                    ) : (
-                        <form onSubmit={handleSubmit}>
-                            <input
-                                type="text"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                className="block border p-2 w-full"
-                            />
-                            <input
-                                type="text"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="block border p-2 w-full mt-2"
-                            />
-                            <input
-                                type="text"
-                                name="address"
-                                value={formData.address}
-                                onChange={handleChange}
-                                className="block border p-2 w-full mt-2"
-                            />
-                            <input
-                                type="text"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                                className="block border p-2 w-full mt-2"
-                            />
-                            <button
-                                type="submit"
-                                className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-                            >
-                                Save
-                            </button>
-                        </form>
-                    )}
+  return (
+    <div className="min-h-screen bg-black text-white">
+          <Navbar />
+          
+          <div className="pt-24 md:pt-32 pb-16 px-4 sm:px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                {/* Sidebar Navigation */}
+                <div className="w-full md:w-64">
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-gray-900 rounded-lg p-4 md:p-6"
+                  >
+                    <div className="space-y-3 md:space-y-4">
+                      <Link
+                        href="/dashboard/ngo/profile"
+                        className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                          />
+                        </svg>
+                        <span>Profile</span>
+                      </Link>
+                      <Link
+                        href="/dashboard/ngo/history"
+                        className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg bg-white text-black text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <span>History</span>
+                      </Link>
+                      <Link
+                        href="/dashboard/ngo/pending-requests"
+                        className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <span>Pending Requests</span>
+                      </Link>
+                      <Link
+                        href="/dashboard/ngo/accepted-requests"
+                        className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        <span>Accepted Requests</span>
+                      </Link>
+                      <Link
+                        href="/dashboard/ngo/volunteers"
+                        className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                          />
+                        </svg>
+                        <span>Volunteers</span>
+                      </Link>
+                    </div>
+                    <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-800">
+                      <button
+                        onClick={() => {/* Add logout logic */}}
+                        className="flex items-center space-x-3 w-full px-3 py-2 md:px-4 md:py-3 rounded-lg text-red-400 hover:bg-red-400/10 transition-colors duration-200 text-sm md:text-base"
+                      >
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                          />
+                        </svg>
+                        <span>Log Out</span>
+                      </button>
+                    </div>
+                  </motion.div>
                 </div>
-            </div>
-        </div>
-    );
-};
 
-export default NGOProfile;
+            {/* Main Content */}
+            <div className="flex-1">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-gray-900 rounded-lg p-8"
+              >
+                <div className="flex justify-between items-center mb-8">
+                  <h1 className="text-2xl font-bold">NGO Profile</h1>
+                  {!isEditing && (
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-200"
+                    >
+                      Edit Profile
+                    </button>
+                  )}
+                </div>
+
+                {isEditing ? (
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Organization Name
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <HeartIcon className="h-5 w-5 text-gray-400" />
+                          </div>
+                          <input
+                            type="text"
+                            value={profile.name}
+                            onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Registration Number
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <DocumentTextIcon className="h-5 w-5 text-gray-400" />
+                          </div>
+                          <input
+                            type="text"
+                            value={profile.registrationNumber}
+                            onChange={(e) => setProfile({ ...profile, registrationNumber: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Email Address
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <EnvelopeIcon className="h-5 w-5 text-gray-400" />
+                          </div>
+                          <input
+                            type="email"
+                            value={profile.email}
+                            onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Phone Number
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <PhoneIcon className="h-5 w-5 text-gray-400" />
+                          </div>
+                          <input
+                            type="tel"
+                            value={profile.phone}
+                            onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                          Website
+                        </label>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <GlobeAltIcon className="h-5 w-5 text-gray-400" />
+                          </div>
+                          <input
+                            type="url"
+                            value={profile.website}
+                            onChange={(e) => setProfile({ ...profile, website: e.target.value })}
+                            className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                            placeholder="https://"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Address
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <MapPinIcon className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <textarea
+                          value={profile.address}
+                          onChange={(e) => setProfile({ ...profile, address: e.target.value })}
+                          className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          rows={3}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-300 mb-2">
+                        Organization Description
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <DocumentTextIcon className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <textarea
+                          value={profile.description}
+                          onChange={(e) => setProfile({ ...profile, description: e.target.value })}
+                          className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-white"
+                          rows={4}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex space-x-4">
+                      <button
+                        type="submit"
+                        className="px-6 py-2 bg-white text-black rounded-md hover:bg-gray-200 transition-colors duration-200"
+                      >
+                        Save Changes
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setIsEditing(false)}
+                        className="px-6 py-2 bg-transparent border border-white text-white rounded-md hover:bg-white hover:text-black transition-colors duration-200"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-400">Organization Name</h3>
+                        <p className="mt-1 text-lg">{profile.name}</p>
+                      </div>
+                      {profile.isVerified && (
+                        <div className="flex items-center bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm">
+                          <CheckBadgeIcon className="h-4 w-4 mr-1" />
+                          Verified
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-400">Registration Number</h3>
+                        <p className="mt-1 text-lg">{profile.registrationNumber}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-400">Email Address</h3>
+                        <p className="mt-1 text-lg">{profile.email}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-400">Phone Number</h3>
+                        <p className="mt-1 text-lg">{profile.phone}</p>
+                      </div>
+                      <div>
+                        <h3 className="text-sm font-medium text-gray-400">Website</h3>
+                        <p className="mt-1 text-lg">
+                          <a href={profile.website} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
+                            {profile.website}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-400">Address</h3>
+                      <p className="mt-1 text-lg">{profile.address}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-400">Organization Description</h3>
+                      <p className="mt-1 text-lg whitespace-pre-line">{profile.description}</p>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
