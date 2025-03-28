@@ -110,17 +110,7 @@ export default function Home() {
       </div>
 
       {/* Navigation Buttons for Sections */}
-      <div className="py-8 text-center">
-        <button onClick={() => scrollToSection('mission-vision')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
-          Mission & Vision
-        </button>
-        <button onClick={() => scrollToSection('our-work')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
-          Our Work
-        </button>
-        <button onClick={() => scrollToSection('who-we-are')} className="mx-2 px-4 py-2 bg-gray-800 rounded-md hover:bg-gray-700 transition">
-          Who We Are
-        </button>
-      </div>
+    
 
       {/* About Sections */}
       {sections.map((section, index) => (
