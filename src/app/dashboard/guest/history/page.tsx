@@ -277,8 +277,43 @@ import { motion } from 'framer-motion'
 import Navbar from '@/components/navigation/Navbar'
 import Link from 'next/link'
 
-const mockHistory: any[] = [
-  // ... (keep your existing mockHistory data)
+const mockHistory= [
+  {
+    id: 1,
+    type: 'Food Request',
+    status: 'Completed',
+    date: '2024-03-15',
+    time: '14:30',
+    details: 'Requested 2 meals from Food Bank A',
+    location: '123 Main St, City',
+  },
+  {
+    id: 2,
+    type: 'Volunteer',
+    status: 'Completed',
+    date: '2024-03-10',
+    time: '09:00',
+    details: 'Helped distribute food at Community Center',
+    location: '456 Community Ave, City',
+  },
+  {
+    id: 3,
+    type: 'Food Request',
+    status: 'Completed',
+    date: '2024-03-05',
+    time: '16:45',
+    details: 'Requested 1 meal from Restaurant B',
+    location: '789 Food St, City',
+  },
+  {
+    id: 4,
+    type: 'Volunteer',
+    status: 'Completed',
+    date: '2024-02-28',
+    time: '10:00',
+    details: 'Assisted in food packaging',
+    location: '321 Service Rd, City',
+  },
 ]
 
 export default function GuestHistory() {

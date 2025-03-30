@@ -85,7 +85,6 @@ import {
   MapPinIcon,
   DocumentTextIcon,
   GlobeAltIcon,
-  ClockIcon,
   CheckBadgeIcon
 } from '@heroicons/react/24/solid'
 
