@@ -98,25 +98,6 @@ export default function FoodRequest() {
               >
                 <div className="space-y-4">
                   <Link
-                    href="/dashboard/restaurant/profile"
-                    className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                      />
-                    </svg>
-                    <span>Profile</span>
-                  </Link>
-                  <Link
                     href="/dashboard/restaurant/food-request"
                     className="flex items-center space-x-3 px-4 py-3 rounded-lg bg-gray-800 text-white"
                   >
@@ -133,7 +114,7 @@ export default function FoodRequest() {
                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                       />
                     </svg>
-                    <span>Food Request</span>
+                    <span>Donate Food</span>
                   </Link>
                   <Link
                     href="/dashboard/restaurant/history"
@@ -187,11 +168,11 @@ export default function FoodRequest() {
                 transition={{ duration: 0.5 }}
                 className="bg-gray-900 rounded-lg p-8"
               >
-                <h1 className="text-2xl font-bold mb-8">Food Request</h1>
+                <h1 className="text-2xl font-bold mb-8">Donate Food</h1>
 
                 {showSuccessAlert && (
                   <div className="mb-6 p-4 bg-green-500/20 text-green-400 rounded-lg">
-                    Food request submitted successfully! An NGO will contact you soon.
+                    Donate Food submitted successfully! An NGO will contact you soon.
                   </div>
                 )}
 
@@ -272,4 +253,4 @@ export default function FoodRequest() {
       </div>
     </div>
   )
-} 
+}
