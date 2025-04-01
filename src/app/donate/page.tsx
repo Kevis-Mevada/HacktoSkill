@@ -203,6 +203,7 @@ export default function DonationPage() {
                     >
                       <FiPackage className="text-3xl mb-3 text-green-400" />
                       <span className="text-lg font-medium">Food Donation</span>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       <p className="text-sm text-gray-400 mt-2 text-center">
                         Donate excess food from events, restaurants, or households
                       </p>
@@ -216,6 +217,7 @@ export default function DonationPage() {
                     >
                       <FiDollarSign className="text-3xl mb-3 text-blue-400" />
                       <span className="text-lg font-medium">Money Donation</span>
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
                       <p className="text-sm text-gray-400 mt-2 text-center">
                         Contribute funds to support our food distribution efforts
                       </p>
@@ -281,7 +283,7 @@ export default function DonationPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <h2 className="text-xl font-bold mb-6">OTP Verification</h2>
-                  <p className="text-gray-400 mb-6">We've sent a 6-digit code to {formData.email}</p>
+                  <p className="text-gray-400 mb-6">We&apos;ve sent a 6-digit code to {formData.email}</p>
                   <div>
                     <label className="text-sm text-gray-300 mb-2 block">Enter OTP</label>
                     <input
@@ -530,7 +532,6 @@ export default function DonationPage() {
                       >
                         <div className="flex flex-col sm:flex-row">
                           <div className="w-full sm:w-1/3 h-40 bg-gray-700 relative">
-                            {/* Replace with your actual image component */}
                             <Image
                               src={ngo.image}
                               alt={ngo.name}
@@ -613,7 +614,7 @@ export default function DonationPage() {
                   ) : (
                     <div className="space-y-4">
                       <div className="text-red-400 flex items-center justify-center">
-                        <FiX className="mr-2" /> NGO didn't respond in time
+                        <FiX className="mr-2" /> NGO didn&apos;t respond in time
                       </div>
                       <div className="bg-gray-800 p-4 rounded-lg text-left">
                         <div className="flex items-start">
