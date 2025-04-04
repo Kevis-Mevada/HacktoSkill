@@ -12,7 +12,7 @@ const volunteerOpportunities = [
     requirements: ['Valid driver\'s license', 'Ability to lift 20kg', 'Flexible schedule'],
     location: 'Multiple locations',
     commitment: '4-6 hours/week',
-    image: '/images/volunteers/collection.jpg',
+    image: '/images/slider/slide2.jpg',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const volunteerOpportunities = [
     requirements: ['Good organizational skills', 'Team player', 'Physical stamina'],
     location: 'Main Distribution Center',
     commitment: '3-4 hours/week',
-    image: '/images/volunteers/distribution.jpg',
+    image: '/images/slider/slide1.jpg',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const volunteerOpportunities = [
     requirements: ['Strong communication skills', 'Event planning experience', 'Social media savvy'],
     location: 'Office & Community',
     commitment: '5-6 hours/week',
-    image: '/images/volunteers/outreach.jpg',
+    image: '/images/slider/slide3.jpg', 
   },
 ]
 

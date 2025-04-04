@@ -90,7 +90,7 @@ export default function DonatePage() {
       distance: '1.2 km',
       rating: 4.8,
       reviews: 156,
-      image: '/ngo1.jpg',
+      image: '/images/slider/ngo1.jpg',
       phone: '+91 9876543210'
     },
     {
@@ -100,7 +100,7 @@ export default function DonatePage() {
       distance: '2.5 km',
       rating: 4.6,
       reviews: 98,
-      image: '/ngo2.jpg',
+      image: '/images/slider/ngo1.jpg',
       phone: '+91 9876543211'
     }
   ]

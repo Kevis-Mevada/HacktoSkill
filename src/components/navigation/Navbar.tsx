@@ -18,7 +18,7 @@ const navigation = [
     ],
   },
   { name: 'Donate', href: '/donate', current: false },
-  { name: 'Find NGO', href: '/find-ngo', current: false },
+  { name: 'Daily Food Request', href: '/daily-food-request', current: false },
   { name: 'Volunteers', href: '/volunteers', current: false },
 ]
 
