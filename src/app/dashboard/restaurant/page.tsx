@@ -14,6 +14,8 @@ import {
   XMarkIcon
 } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+
 
 interface ProfileData {
   restaurantName: string
@@ -50,6 +52,7 @@ export default function RestaurantWelcome() {
 
   const photoInputRef = useRef<HTMLInputElement>(null)
   const licenseInputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>, field: 'photo' | 'license') => {
     if (e.target.files && e.target.files[0]) {
@@ -90,6 +93,10 @@ export default function RestaurantWelcome() {
   }
 
   const completionPercentage = calculateCompletion(profile)
+
+  const handleDashboardClick = () => {
+    router.push('/dashboard/restaurant/Donate-Food')
+  }
 
   return (
     <div className="min-h-screen bg-black text-white relative">
@@ -153,6 +160,7 @@ export default function RestaurantWelcome() {
           {/* Dashboard Card (disabled until profile is complete) */}
           <motion.div
             whileHover={{ scale: completionPercentage === 100 ? 1.03 : 1 }}
+            onClick={completionPercentage === 100 ? handleDashboardClick : undefined}
             className={`bg-gray-900 p-8 rounded-xl border ${completionPercentage === 100 ? 'border-gray-800 cursor-pointer hover:border-orange-500' : 'border-gray-800 cursor-not-allowed'} transition-all duration-300 group`}
           >
             <div className="flex flex-col items-center text-center">
