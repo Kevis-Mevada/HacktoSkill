@@ -144,7 +144,7 @@
                   <h3 className="text-xl font-semibold mb-6">Contact Us</h3>
                   <ul className="space-y-4">
                     <li>Email:info@v2kr.org</li>
-                    <li>Phone: +19624357461</li>
+                    <li>Phone: +91 9624357461</li>
                     <li>Address: Ahmedabad Institute Of Technology,Gota,Ahmedabad</li>
                   </ul>
                 </div>
