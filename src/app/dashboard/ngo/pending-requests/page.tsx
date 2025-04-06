@@ -81,7 +81,7 @@ export default function PendingRequests() {
       requestTime: new Date(Date.now() - 7200000).toISOString(),
       distance: '1.2 km',
       photo: '/food.jpg',
-      specialNotes: 'No onion or garlic please'
+     
     },
     {
       id: 'req2',
