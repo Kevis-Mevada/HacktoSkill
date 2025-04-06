@@ -12,12 +12,13 @@ import {
   FiUsers,
   FiMapPin,
   FiInfo,
-  
+  FiPhone,
+ 
   FiCalendar,
   FiAlertCircle,
   FiHome,
   FiClock as FiHistory,
-
+  FiUserCheck,
   FiFileText,
   FiImage
 } from 'react-icons/fi'
@@ -175,7 +176,7 @@ export default function PendingRequests() {
       setRequests(requests.map(req => 
         req.id === requestId ? { ...req, status: 'rejected' } : req
       ))
-    } catch {
+    } catch  {
       setError('Failed to reject request. Please try again.')
     } finally {
       setIsLoading(false)
@@ -207,7 +208,7 @@ export default function PendingRequests() {
       setRequests(requests.map(req => 
         req.id === requestId ? { ...req, status: 'fulfilled' } : req
       ))
-    } catch {
+    } catch  {
       setError('Failed to update status. Please try again.')
     } finally {
       setIsLoading(false)
@@ -471,148 +472,159 @@ export default function PendingRequests() {
                 >
                   Pending Requests
                 </button>
-               
+                <button
+                  onClick={() => setActiveTab('accepted')}
+                  className={`px-4 py-2 font-medium text-sm md:text-base ${
+                    activeTab === 'accepted'
+                      ? 'text-green-400 border-b-2 border-green-400'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  Accepted Requests
+                </button>
               </div>
 
               {/* Request List */}
-              <div className="grid grid-cols-1 gap-4 md:gap-6">
-                {filteredRequests.length === 0 ? (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700/50"
-                  >
-                    <FiAlertCircle className="mx-auto h-12 w-12 text-gray-500 mb-4" />
-                    <h3 className="text-lg font-medium text-gray-300 mb-1">
-                      No {activeTab} requests
-                    </h3>
-                    <p className="text-gray-500 text-sm">
-                      {activeTab === 'pending'
-                        ? 'All pending requests have been processed'
-                        : 'No accepted requests at the moment'}
-                    </p>
-                  </motion.div>
-                ) : (
-                  <AnimatePresence>
-                    {filteredRequests.map((request) => (
-                      <motion.div
-                        key={request.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95 }}
-                        transition={{ duration: 0.3 }}
-                        className={`bg-gray-800/80 backdrop-blur-lg rounded-xl overflow-hidden border ${
-                          request.status === 'pending'
-                            ? request.type === 'donation' 
-                              ? 'border-blue-500/30 hover:border-blue-500/50'
-                              : 'border-purple-500/30 hover:border-purple-500/50'
-                            : 'border-green-500/30 hover:border-green-500/50'
-                        } transition-colors duration-200`}
-                      >
-                        <div className="p-4 md:p-6">
-                          <div className="flex flex-col md:flex-row gap-4 md:gap-6">
-                            {request.type === 'donation' && request.photo && (
-                              <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0">
-                                <Image
-                                  src={request.photo}
-                                  alt="Food donation"
-                                  fill
-                                  className="object-cover"
-                                />
-                              </div>
-                            )}
-
-                            <div className="flex-1">
-                              <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-lg md:text-xl font-semibold">
-                                  {request.type === 'donation' ? request.donorName : request.requesterName}
-                                </h3>
-                                <div className="flex items-center gap-2">
-                                  {request.type === 'request' && (
-                                    <span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-medium">
-                                      Food Request
-                                    </span>
-                                  )}
-                                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                                    request.status === 'pending'
-                                      ? 'bg-blue-500/20 text-blue-400'
-                                      : 'bg-green-500/20 text-green-400'
-                                  }`}>
-                                    {request.status === 'pending' ? 'Pending' : 'Accepted'}
-                                  </span>
-                                </div>
-                              </div>
-
-                              <p className="text-gray-300 mb-4">
-                                {request.type === 'donation' 
-                                  ? request.foodDescription 
-                                  : `Food request for ${request.quantity} (${request.userType})`}
-                              </p>
-
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <div className="flex items-center text-gray-400">
-                                  <FiUsers className="mr-2" />
-                                  <span>{request.quantity}</span>
-                                </div>
-                                <div className="flex items-center text-gray-400">
-                                  <FiMapPin className="mr-2" />
-                                  <span>{request.type === 'donation' ? request.distance + ' away' : request.address}</span>
-                                </div>
-                                <div className="flex items-center text-gray-400">
-                                  <FiCalendar className="mr-2" />
-                                  <span>{getTimeSince(request.type === 'donation' ? request.requestTime : request.requestTime)}</span>
-                                </div>
-                                {request.type === 'donation' && (
-                                  <div className="flex items-center text-gray-400">
-                                    <FiClock className="mr-2" />
-                                    <span>Cooked at {formatTime(request.cookingTime)}</span>
+              <div className="space-y-8">
+                {/* Food Donations Section */}
+                <div>
+                  <h2 className="text-xl md:text-2xl font-semibold mb-4 flex items-center">
+                    <FiUsers className="mr-2 text-blue-400" />
+                    Food Donations
+                    <span className="ml-2 text-sm bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full">
+                      {filteredRequests.filter(req => req.type === 'donation').length}
+                    </span>
+                  </h2>
+                  
+                  {filteredRequests.filter(req => req.type === 'donation').length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700/50"
+                    >
+                      <FiAlertCircle className="mx-auto h-12 w-12 text-gray-500 mb-4" />
+                      <h3 className="text-lg font-medium text-gray-300 mb-1">
+                        No {activeTab} donations
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        {activeTab === 'pending'
+                          ? 'All pending donations have been processed'
+                          : 'No accepted donations at the moment'}
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <div className="grid grid-cols-1 gap-4 md:gap-6">
+                      {filteredRequests
+                        .filter(req => req.type === 'donation')
+                        .map((request) => (
+                          <motion.div
+                            key={request.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3 }}
+                            className={`bg-gray-800/80 backdrop-blur-lg rounded-xl overflow-hidden border ${
+                              request.status === 'pending'
+                                ? 'border-blue-500/30 hover:border-blue-500/50'
+                                : 'border-green-500/30 hover:border-green-500/50'
+                            } transition-colors duration-200`}
+                          >
+                            <div className="p-4 md:p-6">
+                              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                                {request.photo ? (
+                                  <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0">
+                                    <Image
+                                      src={request.photo}
+                                      alt="Food donation"
+                                      fill
+                                      className="object-cover"
+                                    />
+                                  </div>
+                                ) : (
+                                  <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0 bg-gray-700 flex items-center justify-center">
+                                    <div className="text-center p-4">
+                                      <FiImage className="mx-auto h-10 w-10 text-gray-500 mb-2" />
+                                      <p className="text-gray-400 text-sm">No image shared</p>
+                                    </div>
                                   </div>
                                 )}
-                              </div>
 
-                              {request.specialNotes && (
-                                <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
-                                  <div className="flex items-start">
-                                    <FiInfo className="text-yellow-400 mt-0.5 mr-2 flex-shrink-0" />
-                                    <p className="text-sm text-yellow-100">{request.specialNotes}</p>
+                                <div className="flex-1">
+                                  <div className="flex justify-between items-start mb-2">
+                                    <h3 className="text-lg md:text-xl font-semibold">
+                                      {request.donorName}
+                                    </h3>
+                                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                      request.status === 'pending'
+                                        ? 'bg-blue-500/20 text-blue-400'
+                                        : 'bg-green-500/20 text-green-400'
+                                    }`}>
+                                      {request.status === 'pending' ? 'Pending' : 'Accepted'}
+                                    </span>
                                   </div>
-                                </div>
-                              )}
 
-                              {request.volunteerAssigned && (
-                                <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
-                                  <div className="flex items-center">
-                                    <FiUsers className="text-green-400 mr-2 flex-shrink-0" />
-                                    <p className="text-sm text-green-100">
-                                      Volunteer assigned: {request.volunteerAssigned}
-                                    </p>
+                                  <p className="text-gray-300 mb-4">{request.foodDescription}</p>
+
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div className="flex items-center text-gray-400">
+                                      <FiUsers className="mr-2" />
+                                      <span>{request.quantity}</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiMapPin className="mr-2" />
+                                      <span>{request.distance} away</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiCalendar className="mr-2" />
+                                      <span>{getTimeSince(request.requestTime)}</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiClock className="mr-2" />
+                                      <span>Cooked at {formatTime(request.cookingTime)}</span>
+                                    </div>
                                   </div>
-                                </div>
-                              )}
 
-                              <div className="flex flex-wrap gap-3 mt-4">
-                                {request.status === 'pending' ? (
-                                  <>
-                                    <button
-                                      onClick={() => handleAccept(request.id)}
-                                      disabled={isLoading}
-                                      className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
-                                    >
-                                      <FiCheck className="mr-2" />
-                                      Accept Request
-                                    </button>
-                                    <button
-                                      onClick={() => handleReject(request.id)}
-                                      disabled={isLoading}
-                                      className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
-                                    >
-                                      <FiX className="mr-2" />
-                                      Reject Request
-                                    </button>
-                                  </>
-                                ) : (
-                                  <>
-                                    {request.type === 'donation' ? (
+                                  {request.specialNotes && (
+                                    <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                                      <div className="flex items-start">
+                                        <FiInfo className="text-yellow-400 mt-0.5 mr-2 flex-shrink-0" />
+                                        <p className="text-sm text-yellow-100">{request.specialNotes}</p>
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  {request.volunteerAssigned && (
+                                    <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                                      <div className="flex items-center">
+                                        <FiUsers className="text-green-400 mr-2 flex-shrink-0" />
+                                        <p className="text-sm text-green-100">
+                                          Volunteer assigned: {request.volunteerAssigned}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  <div className="flex flex-wrap gap-3 mt-4">
+                                    {request.status === 'pending' ? (
+                                      <>
+                                        <button
+                                          onClick={() => handleAccept(request.id)}
+                                          disabled={isLoading}
+                                          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                          <FiCheck className="mr-2" />
+                                          Accept Donation
+                                        </button>
+                                        <button
+                                          onClick={() => handleReject(request.id)}
+                                          disabled={isLoading}
+                                          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                          <FiX className="mr-2" />
+                                          Reject Donation
+                                        </button>
+                                      </>
+                                    ) : (
                                       <button
                                         onClick={() => handleMarkAsCollected(request.id)}
                                         disabled={isLoading}
@@ -621,6 +633,161 @@ export default function PendingRequests() {
                                         <FiCheck className="mr-2" />
                                         Mark as Collected
                                       </button>
+                                    )}
+
+                                    <button
+                                      onClick={() => setSelectedRequest(request)}
+                                      className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg flex items-center transition-colors duration-200"
+                                    >
+                                      <FiInfo className="mr-2" />
+                                      View Details
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Food Requests Section */}
+                <div>
+                  <h2 className="text-xl md:text-2xl font-semibold mb-4 flex items-center">
+                    <FiUserCheck className="mr-2 text-purple-400" />
+                    Daily Food Requests
+                    <span className="ml-2 text-sm bg-purple-500/20 text-purple-400 px-2 py-1 rounded-full">
+                      {filteredRequests.filter(req => req.type === 'request').length}
+                    </span>
+                  </h2>
+                  
+                  {filteredRequests.filter(req => req.type === 'request').length === 0 ? (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="bg-gray-800/50 rounded-xl p-8 text-center border border-gray-700/50"
+                    >
+                      <FiAlertCircle className="mx-auto h-12 w-12 text-gray-500 mb-4" />
+                      <h3 className="text-lg font-medium text-gray-300 mb-1">
+                        No {activeTab} food requests
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        {activeTab === 'pending'
+                          ? 'All pending requests have been processed'
+                          : 'No accepted requests at the moment'}
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <div className="grid grid-cols-1 gap-4 md:gap-6">
+                      {filteredRequests
+                        .filter(req => req.type === 'request')
+                        .map((request) => (
+                          <motion.div
+                            key={request.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            transition={{ duration: 0.3 }}
+                            className={`bg-gray-800/80 backdrop-blur-lg rounded-xl overflow-hidden border ${
+                              request.status === 'pending'
+                                ? 'border-purple-500/30 hover:border-purple-500/50'
+                                : 'border-green-500/30 hover:border-green-500/50'
+                            } transition-colors duration-200`}
+                          >
+                            <div className="p-4 md:p-6">
+                              <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+                                <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0 bg-gray-700 flex items-center justify-center">
+                                  <div className="text-center p-4">
+                                    <FiUserCheck className="mx-auto h-10 w-10 text-purple-400 mb-2" />
+                                    <p className="text-purple-400 text-sm">
+                                      {request.userType === 'hostel' ? 'Hostel Student' : 'Other'}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="flex-1">
+                                  <div className="flex justify-between items-start mb-2">
+                                    <h3 className="text-lg md:text-xl font-semibold">
+                                      {request.requesterName}
+                                    </h3>
+                                    <div className="flex items-center gap-2">
+                                      <span className="px-2 py-1 bg-purple-500/20 text-purple-400 rounded-full text-xs font-medium">
+                                        Food Request
+                                      </span>
+                                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                        request.status === 'pending'
+                                          ? 'bg-blue-500/20 text-blue-400'
+                                          : 'bg-green-500/20 text-green-400'
+                                      }`}>
+                                        {request.status === 'pending' ? 'Pending' : 'Accepted'}
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <p className="text-gray-300 mb-4">
+                                    Food request for {request.quantity} ({request.userType})
+                                  </p>
+
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div className="flex items-center text-gray-400">
+                                      <FiUsers className="mr-2" />
+                                      <span>{request.quantity}</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiMapPin className="mr-2" />
+                                      <span>{request.address}</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiCalendar className="mr-2" />
+                                      <span>{getTimeSince(request.requestTime)}</span>
+                                    </div>
+                                    <div className="flex items-center text-gray-400">
+                                      <FiPhone className="mr-2" />
+                                      <span>{request.requesterPhone}</span>
+                                    </div>
+                                  </div>
+
+                                  {request.specialNotes && (
+                                    <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                                      <div className="flex items-start">
+                                        <FiInfo className="text-yellow-400 mt-0.5 mr-2 flex-shrink-0" />
+                                        <p className="text-sm text-yellow-100">{request.specialNotes}</p>
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  {request.volunteerAssigned && (
+                                    <div className="bg-gray-700/50 rounded-lg p-3 mb-4">
+                                      <div className="flex items-center">
+                                        <FiUsers className="text-green-400 mr-2 flex-shrink-0" />
+                                        <p className="text-sm text-green-100">
+                                          Volunteer assigned: {request.volunteerAssigned}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  <div className="flex flex-wrap gap-3 mt-4">
+                                    {request.status === 'pending' ? (
+                                      <>
+                                        <button
+                                          onClick={() => handleAccept(request.id)}
+                                          disabled={isLoading}
+                                          className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                          <FiCheck className="mr-2" />
+                                          Accept Request
+                                        </button>
+                                        <button
+                                          onClick={() => handleReject(request.id)}
+                                          disabled={isLoading}
+                                          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center transition-colors duration-200 disabled:opacity-50"
+                                        >
+                                          <FiX className="mr-2" />
+                                          Reject Request
+                                        </button>
+                                      </>
                                     ) : (
                                       <button
                                         onClick={() => handleMarkAsFulfilled(request.id)}
@@ -631,34 +798,31 @@ export default function PendingRequests() {
                                         Mark as Fulfilled
                                       </button>
                                     )}
-                                  </>
-                                )}
 
-                                {request.type === 'request' && (
-                                  <button
-                                    onClick={() => setShowDocuments(request.documents)}
-                                    className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg flex items-center transition-colors duration-200"
-                                  >
-                                    <FiFileText className="mr-2" />
-                                    View Documents
-                                  </button>
-                                )}
+                                    <button
+                                      onClick={() => setShowDocuments(request.documents)}
+                                      className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg flex items-center transition-colors duration-200"
+                                    >
+                                      <FiFileText className="mr-2" />
+                                      View Documents
+                                    </button>
 
-                                <button
-                                  onClick={() => setSelectedRequest(request)}
-                                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg flex items-center transition-colors duration-200"
-                                >
-                                  <FiInfo className="mr-2" />
-                                  View Details
-                                </button>
+                                    <button
+                                      onClick={() => setSelectedRequest(request)}
+                                      className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg flex items-center transition-colors duration-200"
+                                    >
+                                      <FiInfo className="mr-2" />
+                                      View Details
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </AnimatePresence>
-                )}
+                          </motion.div>
+                        ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -695,7 +859,7 @@ export default function PendingRequests() {
                   </button>
                 </div>
 
-                {selectedRequest.type === 'donation' && selectedRequest.photo && (
+                {selectedRequest.type === 'donation' && selectedRequest.photo ? (
                   <div className="relative w-full h-48 md:h-64 rounded-lg overflow-hidden mb-6">
                     <Image
                       src={selectedRequest.photo}
@@ -704,7 +868,14 @@ export default function PendingRequests() {
                       className="object-cover"
                     />
                   </div>
-                )}
+                ) : selectedRequest.type === 'donation' ? (
+                  <div className="relative w-full h-48 md:h-64 rounded-lg overflow-hidden mb-6 bg-gray-700 flex items-center justify-center">
+                    <div className="text-center p-4">
+                      <FiImage className="mx-auto h-10 w-10 text-gray-500 mb-2" />
+                      <p className="text-gray-400">No image shared by donor</p>
+                    </div>
+                  </div>
+                ) : null}
 
                 {renderRequestDetails(selectedRequest)}
 
@@ -719,7 +890,7 @@ export default function PendingRequests() {
                         className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg flex items-center transition-colors duration-200"
                       >
                         <FiCheck className="mr-2" />
-                        Accept Request
+                        Accept {selectedRequest.type === 'donation' ? 'Donation' : 'Request'}
                       </button>
                       <button
                         onClick={() => {
@@ -729,7 +900,7 @@ export default function PendingRequests() {
                         className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center transition-colors duration-200"
                       >
                         <FiX className="mr-2" />
-                        Reject Request
+                        Reject {selectedRequest.type === 'donation' ? 'Donation' : 'Request'}
                       </button>
                     </>
                   ) : (
