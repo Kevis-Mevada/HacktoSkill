@@ -413,13 +413,7 @@ export default function PendingRequests() {
                     <FiClock className="w-5 h-5" />
                     <span>Pending Requests</span>
                   </Link>
-                  <Link
-                    href="/dashboard/ngo/accepted-requests"
-                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white text-sm md:text-base"
-                  >
-                    <FiCheck className="w-5 h-5" />
-                    <span>Accepted Requests</span>
-                  </Link>
+                  
                   <Link
                     href="/dashboard/ngo/volunteers"
                     className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white text-sm md:text-base"
@@ -477,16 +471,7 @@ export default function PendingRequests() {
                 >
                   Pending Requests
                 </button>
-                <button
-                  onClick={() => setActiveTab('accepted')}
-                  className={`px-4 py-2 font-medium text-sm md:text-base ${
-                    activeTab === 'accepted'
-                      ? 'text-green-400 border-b-2 border-green-400'
-                      : 'text-gray-400 hover:text-white'
-                  }`}
-                >
-                  Accepted Requests
-                </button>
+               
               </div>
 
               {/* Request List */}
