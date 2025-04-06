@@ -143,9 +143,9 @@
                 <div>
                   <h3 className="text-xl font-semibold mb-6">Contact Us</h3>
                   <ul className="space-y-4">
-                    <li>Email: info@foodshare.org</li>
-                    <li>Phone: +1 (123) 456-7890</li>
-                    <li>Address: 123 Food Street, City, Country</li>
+                    <li>Email:info@v2kr.org</li>
+                    <li>Phone: +19624357461</li>
+                    <li>Address: Ahmedabad Institute Of Technology,Gota,Ahmedabad</li>
                   </ul>
                 </div>
                 <div>
@@ -159,14 +159,14 @@
                 <div>
                   <h3 className="text-xl font-semibold mb-6">Follow Us</h3>
                   <ul className="space-y-4">
-                    <li><a href="#" className="hover:text-gray-300">Facebook</a></li>
-                    <li><a href="#" className="hover:text-gray-300">Twitter</a></li>
-                    <li><a href="#" className="hover:text-gray-300">Instagram</a></li>
+                    <li><a href="https://www.facebook.com/" className="hover:text-gray-300">Facebook</a></li>
+                    <li><a href="https://x.com/?lang=en" className="hover:text-gray-300">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/kevish_29?igsh=MXNkcGZhaTBteDIwNA==" className="hover:text-gray-300">Instagram</a></li>
                   </ul>
                 </div>
               </div>
               <div className="mt-12 pt-8 border-t border-gray-800 text-center">
-                <p className="text-gray-400">&copy; 2024 FoodShare. All rights reserved.</p>
+                <p className="text-gray-400">&copy; 2025 v2kr. All rights reserved.</p>
               </div>
             </div>
           </footer>

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '@/components/navigation/Navbar'
 import Link from 'next/link'
+import { FiHome } from 'react-icons/fi'
 
 const mockHistory = [
   {
@@ -85,7 +86,7 @@ export default function History() {
   const filteredByDate = filteredHistory.filter((item) => getDateRange(item.date))
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       <Navbar />
       
       <div className="pt-24 md:pt-32 pb-16 px-4 sm:px-6">
@@ -97,12 +98,20 @@ export default function History() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5 }}
-                className="bg-gray-900 rounded-lg p-4 md:p-6"
+                className="bg-gray-800 rounded-lg p-4 md:p-6"
               >
+                
                 <div className="space-y-3 md:space-y-4">
+                <Link
+                    href="/dashboard/ngo"
+                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white text-sm md:text-base"
+                  >
+                    <FiHome className="w-5 h-5" />
+                    <span>Dashboard</span>
+                  </Link>
                   <Link
                     href="/dashboard/ngo/history"
-                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg bg-white text-black text-sm md:text-base"
+                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg bg-blue-500 text-white text-sm md:text-base"
                   >
                     <svg
                       className="w-5 h-5"
@@ -121,7 +130,7 @@ export default function History() {
                   </Link>
                   <Link
                     href="/dashboard/ngo/pending-requests"
-                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white text-sm md:text-base"
                   >
                     <svg
                       className="w-5 h-5"
@@ -138,28 +147,10 @@ export default function History() {
                     </svg>
                     <span>Pending Requests</span>
                   </Link>
-                  <Link
-                    href="/dashboard/ngo/accepted-requests"
-                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                    <span>Accepted Requests</span>
-                  </Link>
+                  
                   <Link
                     href="/dashboard/ngo/volunteers"
-                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white text-sm md:text-base"
+                    className="flex items-center space-x-3 px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-300 hover:bg-gray-700 hover:text-white text-sm md:text-base"
                   >
                     <svg
                       className="w-5 h-5"
@@ -177,7 +168,7 @@ export default function History() {
                     <span>Volunteers</span>
                   </Link>
                 </div>
-                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-800">
+                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-gray-700">
                   <button
                     onClick={() => {/* Add logout logic */}}
                     className="flex items-center space-x-3 w-full px-3 py-2 md:px-4 md:py-3 rounded-lg text-red-400 hover:bg-red-400/10 transition-colors duration-200 text-sm md:text-base"
@@ -217,7 +208,7 @@ export default function History() {
                         onClick={() => setFilter('all')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           filter === 'all'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -227,7 +218,7 @@ export default function History() {
                         onClick={() => setFilter('food_request')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           filter === 'food_request'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -237,7 +228,7 @@ export default function History() {
                         onClick={() => setFilter('volunteer_activity')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           filter === 'volunteer_activity'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -249,7 +240,7 @@ export default function History() {
                         onClick={() => setDateRange('week')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           dateRange === 'week'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -259,7 +250,7 @@ export default function History() {
                         onClick={() => setDateRange('month')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           dateRange === 'month'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -269,7 +260,7 @@ export default function History() {
                         onClick={() => setDateRange('year')}
                         className={`px-3 py-1 sm:px-4 sm:py-2 rounded-md transition-colors duration-200 text-sm sm:text-base ${
                           dateRange === 'year'
-                            ? 'bg-white text-black'
+                            ? 'bg-blue-500 text-white'
                             : 'bg-gray-800 text-white hover:bg-gray-700'
                         }`}
                       >
@@ -285,6 +276,7 @@ export default function History() {
                       key={item.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
                       className="bg-gray-800 rounded-lg p-4 sm:p-6"
                     >
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-4">
